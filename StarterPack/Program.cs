@@ -6,17 +6,18 @@ using StarterPack.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Register services
-builder.Services.AddRazorPages(); // Add Razor Pages support
+builder.Services.AddRazorPages(); 
 builder.Services.AddHttpClient(); // Required for WeatherService
 builder.Services.AddScoped<WeatherService>(); // Register WeatherService
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration); // Ensure IConfiguration is available
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddScoped<CalculatorService>(); // Register CalculatorService
 
 var app = builder.Build();
 
 // Configure middleware
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error"); // Handle errors in production
+    app.UseExceptionHandler("/Error"); 
     app.UseHsts();
 }
 

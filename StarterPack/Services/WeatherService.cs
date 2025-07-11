@@ -1,4 +1,4 @@
-﻿using StarterPack.Models;
+﻿using StarterPack.Models.Weather;
 using System.Text.Json;
 
 namespace StarterPack.Services
@@ -37,7 +37,15 @@ namespace StarterPack.Services
                 Condition = weatherRaw.Current.Condition.Text,
                 ConditionIcon = "https:" + weatherRaw.Current.Condition.Icon,
                 Forecast = weatherRaw.Forecast.ForecastDay[0].Hour
-                    .Where(h => DateTime.Parse(h.Time) > DateTime.Now)
+                    .OrderBy(h => DateTime.Parse(h.Time))
+                    .Where(h => DateTime.Parse(h.Time) >= DateTime.Now)
+                    .Take(4)
+                    .Union(
+                        weatherRaw.Forecast.ForecastDay[0].Hour
+                            .Where(h => DateTime.Parse(h.Time) < DateTime.Now)
+                            .OrderBy(h => DateTime.Parse(h.Time))
+                            .Take(4)
+                    )
                     .Take(4)
                     .Select(h => new HourlyForecastDto
                     {

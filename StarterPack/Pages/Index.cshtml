@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Weather App";
 }
+@Html.AntiForgeryToken()
 
 <!DOCTYPE html>
 <html lang="en">
@@ -143,8 +144,8 @@
             <section class="calculator">
                 <div class="carcasa">
                     <div class="ecran-div">
-                        <p class="equation">18 x 3 + 8</p>
-                        <p class="result">62</p>
+                        <p class="equation">@Model.Calculator.CurrentEquation</p>
+                        <p class="result">@Model.Calculator.CurrentDisplay</p>
                     </div>
                     <div class="tastatura-div">
                         <div class="grid-keys">
@@ -155,7 +156,7 @@
                             <p class="key">7</p>
                             <p class="key">8</p>
                             <p class="key">9</p>
-                            <p class="key">x</p>
+                            <p class="key">×</p>  
                             <p class="key">4</p>
                             <p class="key">5</p>
                             <p class="key">6</p>
@@ -164,7 +165,7 @@
                             <p class="key">2</p>
                             <p class="key">3</p>
                             <p class="key">+</p>
-                            <p class="key">dx</p>
+                            <p class="key">dx</p>  
                             <p class="key">0</p>
                             <p class="key">.</p>
                             <p class="key">=</p>
@@ -182,5 +183,7 @@
             }
         });
     </script>
+
+    <script src="~/js/calculator.js"></script>
 </body>
 </html>

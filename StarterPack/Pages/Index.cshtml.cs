@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using StarterPack.Models;
+using StarterPack.Models.Calculator;
+using StarterPack.Models.Weather;
 using StarterPack.Services;
 
 namespace StarterPack.Pages
@@ -8,10 +9,12 @@ namespace StarterPack.Pages
     public class IndexModel : PageModel
     {
         private readonly WeatherService _weatherService;
+        private readonly CalculatorService _calculatorService;
 
-        public IndexModel(WeatherService weatherService)
+        public IndexModel(WeatherService weatherService, CalculatorService calculatorService)
         {
             _weatherService = weatherService;
+            _calculatorService = calculatorService;
         }
 
         //default values if city not found
@@ -30,6 +33,7 @@ namespace StarterPack.Pages
             new ForecastViewModel { Icon = "images/sun (3).png", Hour = "?pm", Temp = "?° C" }
         };
         public string SearchCity { get; set; } = "Chisinau"; //by default
+        public CalculatorViewModel Calculator { get; set; } = new();
 
         public async Task OnGetAsync(string city = "Chisinau")
         {
@@ -62,6 +66,15 @@ namespace StarterPack.Pages
             {
                 Console.WriteLine($"Weather fetch error: {ex.Message}");
             }
+
+            Calculator = new CalculatorViewModel();
+        }
+
+        public async Task<IActionResult> OnPostCalculatorAsync([FromBody] CalculationRequest request)
+        {
+            Calculator = _calculatorService.ProcessCalculation(request);
+
+            return new JsonResult(Calculator);
         }
 
         private string GetLocalWeatherIcon(string condition, bool isDay)

@@ -1,4 +1,4 @@
-﻿namespace StarterPack.Models
+﻿namespace StarterPack.Models.Weather
 {
     public class HourlyForecastDto
     {
