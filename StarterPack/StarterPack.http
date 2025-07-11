@@ -1,0 +1,6 @@
+@StarterPack_HostAddress = http://localhost:5145
+
+# GET {{StarterPack_HostAddress}}/weatherforecast/
+# Accept: application/json
+
+###

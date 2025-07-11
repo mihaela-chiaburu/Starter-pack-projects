@@ -1,0 +1,186 @@
+﻿@page
+@model StarterPack.Pages.IndexModel
+@{
+    ViewData["Title"] = "Weather App";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/backpack-2.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css">
+    <title>Starter Pack</title>
+</head>
+<body>
+    <main>
+        <article class="all-content">
+            <section class="weather-app">
+                <h2 id="city-name">@Model.CityName</h2>
+                <img src="@Model.ConditionIcon" alt="weather icon" class="meteo-img" id="condition-icon">
+                <p class="meteo-info grade" id="temperature">@Model.Temperature</p>
+                <p class="meteo-info" id="condition">@Model.Condition</p>
+                <div class="meteo-icons-div">
+                    <span class="meteo-info"><img src="images/wind.png" class="meteo-icons"> <span id="wind">@Model.Wind</span></span>
+                    <span class="meteo-info"><img src="images/humidity.png" class="meteo-icons"> <span id="humidity">@Model.Humidity</span></span>
+                    <span class="meteo-info"><img src="images/sun.png" class="meteo-icons"> <span id="uv">@Model.Uv</span></span>
+                </div>
+                <p class="meteo-info hf-p">Hourly Forecast</p>
+                <div class="forecast">
+                    @foreach (var forecast in Model.Forecast)
+                    {
+                        <div class="forecast-weather-card">
+                            <img src="@forecast.Icon" alt="weather icon" class="forecast-img">
+                            <p class="forecast-p">@forecast.Hour</p>
+                            <p class="forecast-p">@forecast.Temp</p>
+                        </div>
+                    }
+                </div>
+                <div class="input-wrapper">
+                    <form method="get">
+                        <input type="text" name="city" class="input-oras" placeholder="Search city" value="@Model.SearchCity">
+                        <img src="images/search.png" alt="search icon" class="search-icon">
+                    </form>
+                </div>
+            </section>
+            <section class="todo-app">
+                <div class="input-wrapper input-wrapper-todo">
+                    <input type="text" class="input-oras" placeholder="Add item">
+                    <img src="images/plus.png" alt="search icon" class="search-icon add-item-icon">
+                </div>
+                <div class="todo-items">
+                    <p class="todo-p">TO DO</p>
+                    <div class="item-div">
+                        <div class="left-part">
+                            <input type="checkbox" id="item1" name="item1" class="input-todo" />
+                            <label for="item1">Wake Up</label>
+                        </div>
+                        <span class="date-todo">
+                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                            due today
+                        </span>
+                    </div>
+                    <div class="item-div">
+                        <div class="left-part">
+                            <input type="checkbox" id="item2" name="item2" class="input-todo" />
+                            <label for="item2">Make breakfast</label>
+                        </div>
+                        <span class="date-todo">
+                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                            09/07/2025
+                        </span>
+                    </div>
+                    <div class="item-div">
+                        <div class="left-part">
+                            <input type="checkbox" id="item3" name="item3" class="input-todo" />
+                            <label for="item3">Watch TikTok</label>
+                        </div>
+                        <span class="date-todo">
+                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                            10/07/2025
+                        </span>
+                    </div>
+                    <div class="item-div">
+                        <div class="left-part">
+                            <input type="checkbox" id="item4" name="item4" class="input-todo" />
+                            <label for="item4">Go sleep</label>
+                        </div>
+                        <span class="date-todo">
+                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                            11/07/2025
+                        </span>
+                    </div>
+                </div>
+                <div class="completed-items">
+                    <p class="todo-p">COMPLETED</p>
+                    <div class="item-div completed-div">
+                        <div class="left-part">
+                            <input type="checkbox" id="item1" name="item1" class="input-todo" checked />
+                            <label for="item1">Sleep</label>
+                        </div>
+                        <span class="date-todo">
+                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                            due today
+                        </span>
+                    </div>
+                    <div class="item-div completed-div">
+                        <div class="left-part">
+                            <input type="checkbox" id="item2" name="item2" class="input-todo" checked />
+                            <label for="item2">Watch a video</label>
+                        </div>
+                        <span class="date-todo">
+                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                            06/07/2025
+                        </span>
+                    </div>
+                    <div class="item-div completed-div">
+                        <div class="left-part">
+                            <input type="checkbox" id="item2" name="item2" class="input-todo" checked />
+                            <label for="item2">Watch a movie</label>
+                        </div>
+                        <span class="date-todo">
+                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                            05/07/2025
+                        </span>
+                    </div>
+                    <div class="item-div completed-div">
+                        <div class="left-part">
+                            <input type="checkbox" id="item2" name="item2" class="input-todo" checked />
+                            <label for="item2">Dance</label>
+                        </div>
+                        <span class="date-todo">
+                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                            02/07/2025
+                        </span>
+                    </div>
+                </div>
+            </section>
+            <section class="calculator">
+                <div class="carcasa">
+                    <div class="ecran-div">
+                        <p class="equation">18 x 3 + 8</p>
+                        <p class="result">62</p>
+                    </div>
+                    <div class="tastatura-div">
+                        <div class="grid-keys">
+                            <p class="key">C</p>
+                            <p class="key">+/-</p>
+                            <p class="key">%</p>
+                            <p class="key">÷</p>
+                            <p class="key">7</p>
+                            <p class="key">8</p>
+                            <p class="key">9</p>
+                            <p class="key">x</p>
+                            <p class="key">4</p>
+                            <p class="key">5</p>
+                            <p class="key">6</p>
+                            <p class="key">-</p>
+                            <p class="key">1</p>
+                            <p class="key">2</p>
+                            <p class="key">3</p>
+                            <p class="key">+</p>
+                            <p class="key">dx</p>
+                            <p class="key">0</p>
+                            <p class="key">.</p>
+                            <p class="key">=</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </main>
+
+    <script>
+        document.querySelector('.input-oras').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.target.form.submit();
+            }
+        });
+    </script>
+</body>
+</html>
