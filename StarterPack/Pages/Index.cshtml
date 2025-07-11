@@ -51,93 +51,43 @@
             </section>
             <section class="todo-app">
                 <div class="input-wrapper input-wrapper-todo">
-                    <input type="text" class="input-oras" placeholder="Add item">
-                    <img src="images/plus.png" alt="search icon" class="search-icon add-item-icon">
+                    <input type="text" class="input-oras" placeholder="Add item" id="todo-input">
+                    <img src="images/plus.png" alt="add icon" class="search-icon add-item-icon" id="add-todo-btn">
                 </div>
                 <div class="todo-items">
                     <p class="todo-p">TO DO</p>
-                    <div class="item-div">
-                        <div class="left-part">
-                            <input type="checkbox" id="item1" name="item1" class="input-todo" />
-                            <label for="item1">Wake Up</label>
-                        </div>
-                        <span class="date-todo">
-                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                            due today
-                        </span>
-                    </div>
-                    <div class="item-div">
-                        <div class="left-part">
-                            <input type="checkbox" id="item2" name="item2" class="input-todo" />
-                            <label for="item2">Make breakfast</label>
-                        </div>
-                        <span class="date-todo">
-                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                            09/07/2025
-                        </span>
-                    </div>
-                    <div class="item-div">
-                        <div class="left-part">
-                            <input type="checkbox" id="item3" name="item3" class="input-todo" />
-                            <label for="item3">Watch TikTok</label>
-                        </div>
-                        <span class="date-todo">
-                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                            10/07/2025
-                        </span>
-                    </div>
-                    <div class="item-div">
-                        <div class="left-part">
-                            <input type="checkbox" id="item4" name="item4" class="input-todo" />
-                            <label for="item4">Go sleep</label>
-                        </div>
-                        <span class="date-todo">
-                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                            11/07/2025
-                        </span>
+                    <div id="pending-todos">
+                        @foreach (var todo in Model.PendingTodos)
+                        {
+                            <div class="item-div" data-todo-id="@todo.Id">
+                                <div class="left-part">
+                                    <input type="checkbox" id="item@(todo.Id)" name="item@(todo.Id)" class="input-todo todo-checkbox" />
+                                    <label for="item@(todo.Id)">@todo.Text</label>
+                                </div>
+                                <span class="date-todo">
+                                    <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                                    @todo.FormattedDueDate
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="completed-items">
                     <p class="todo-p">COMPLETED</p>
-                    <div class="item-div completed-div">
-                        <div class="left-part">
-                            <input type="checkbox" id="item1" name="item1" class="input-todo" checked />
-                            <label for="item1">Sleep</label>
-                        </div>
-                        <span class="date-todo">
-                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                            due today
-                        </span>
-                    </div>
-                    <div class="item-div completed-div">
-                        <div class="left-part">
-                            <input type="checkbox" id="item2" name="item2" class="input-todo" checked />
-                            <label for="item2">Watch a video</label>
-                        </div>
-                        <span class="date-todo">
-                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                            06/07/2025
-                        </span>
-                    </div>
-                    <div class="item-div completed-div">
-                        <div class="left-part">
-                            <input type="checkbox" id="item2" name="item2" class="input-todo" checked />
-                            <label for="item2">Watch a movie</label>
-                        </div>
-                        <span class="date-todo">
-                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                            05/07/2025
-                        </span>
-                    </div>
-                    <div class="item-div completed-div">
-                        <div class="left-part">
-                            <input type="checkbox" id="item2" name="item2" class="input-todo" checked />
-                            <label for="item2">Dance</label>
-                        </div>
-                        <span class="date-todo">
-                            <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                            02/07/2025
-                        </span>
+                    <div id="completed-todos">
+                        @foreach (var todo in Model.CompletedTodos)
+                        {
+                            <div class="item-div completed-div" data-todo-id="@todo.Id">
+                                <div class="left-part">
+                                    <input type="checkbox" id="completed@(todo.Id)" name="completed@(todo.Id)" class="input-todo todo-checkbox" checked />
+                                    <label for="completed@(todo.Id)">@todo.Text</label>
+                                </div>
+                                <span class="date-todo">
+                                    <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                                    @todo.FormattedDueDate
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
             </section>
@@ -185,5 +135,6 @@
     </script>
 
     <script src="~/js/calculator.js"></script>
+    <script src="~/js/todo.js"></script>
 </body>
 </html>

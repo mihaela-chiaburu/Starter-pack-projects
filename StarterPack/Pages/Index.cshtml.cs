@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using StarterPack.Models.Calculator;
+using StarterPack.Models.ToDo;
 using StarterPack.Models.Weather;
 using StarterPack.Services;
 
@@ -10,11 +11,13 @@ namespace StarterPack.Pages
     {
         private readonly WeatherService _weatherService;
         private readonly CalculatorService _calculatorService;
+        private readonly ToDoService _toDoService;
 
-        public IndexModel(WeatherService weatherService, CalculatorService calculatorService)
+        public IndexModel(WeatherService weatherService, CalculatorService calculatorService, ToDoService toDoService)
         {
             _weatherService = weatherService;
             _calculatorService = calculatorService;
+            _toDoService = toDoService;
         }
 
         //default values if city not found
@@ -34,6 +37,9 @@ namespace StarterPack.Pages
         };
         public string SearchCity { get; set; } = "Chisinau"; //by default
         public CalculatorViewModel Calculator { get; set; } = new();
+        public IEnumerable<ToDoItem> PendingTodos { get; set; } = new List<ToDoItem>();
+        public IEnumerable<ToDoItem> CompletedTodos { get; set; } = new List<ToDoItem>();
+
 
         public async Task OnGetAsync(string city = "Chisinau")
         {
@@ -68,6 +74,7 @@ namespace StarterPack.Pages
             }
 
             Calculator = new CalculatorViewModel();
+            LoadTodoData();
         }
 
         public async Task<IActionResult> OnPostCalculatorAsync([FromBody] CalculationRequest request)
@@ -75,6 +82,12 @@ namespace StarterPack.Pages
             Calculator = _calculatorService.ProcessCalculation(request);
 
             return new JsonResult(Calculator);
+        }
+
+        private void LoadTodoData()
+        {
+            PendingTodos = _toDoService.GetPendingTodos();
+            CompletedTodos = _toDoService.GetCompletedTodos();
         }
 
         private string GetLocalWeatherIcon(string condition, bool isDay)

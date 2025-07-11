@@ -14,8 +14,4 @@
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.7" Condition="'$(Configuration)' == 'Debug'" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Models\ToDo\" />
-	</ItemGroup>
-
 </Project>

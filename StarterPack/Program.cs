@@ -11,6 +11,7 @@ builder.Services.AddHttpClient(); // Required for WeatherService
 builder.Services.AddScoped<WeatherService>(); // Register WeatherService
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<CalculatorService>(); // Register CalculatorService
+builder.Services.AddSingleton<ToDoService>(); // todo service
 
 var app = builder.Build();
 
