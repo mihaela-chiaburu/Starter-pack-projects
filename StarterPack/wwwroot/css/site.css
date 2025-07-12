@@ -133,13 +133,15 @@ body, h1, h2, h3 {
 .calendar-icon {
     width: 15px;
     align-self: flex-end;
+    cursor: pointer;
 }
 
 .todo-app {
     background-color: rgb(50, 49, 91);
     flex: 1;
-    min-width: 300px; 
+    min-width: 300px;
     font-family: "Inter", sans-serif;
+    font-size: 14px;
     color: white;
     display: flex;
     flex-direction: column;
@@ -165,14 +167,14 @@ body, h1, h2, h3 {
     width: 90%;
     margin-bottom: 10px;
     background-color: rgba(137, 158, 176, 0.3);
-    padding: 1rem;
+    padding: 0.7rem;
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.left-part {
+.completed-items .left-part {
     justify-content: flex-start;
     text-decoration: line-through;
 }
@@ -190,6 +192,50 @@ body, h1, h2, h3 {
     font-weight: 400;
     align-items: center;
     justify-content: center;
+}
+
+.arrow-down {
+    width: 20px;
+    height: auto;
+    cursor: pointer;
+    opacity: 0.1;
+    transition: 0.3s;
+}
+
+    .arrow-down:hover {
+        opacity: 0.7;
+    }
+
+.up {
+    transform: scaleY(-1);
+    margin-bottom: 10px;
+}
+
+.flex-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-icon {
+    width: 15px;
+    height: auto;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+}
+
+.bin {
+    width: 13px;
+    height: auto;
+}
+
+.right-part {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    margin-right: 10px;
 }
 
 .add-item-icon {

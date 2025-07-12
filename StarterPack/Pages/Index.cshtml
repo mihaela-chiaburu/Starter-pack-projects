@@ -56,6 +56,7 @@
                 </div>
                 <div class="todo-items">
                     <p class="todo-p">TO DO</p>
+                    <span class="flex-arrow"><img src="images/arrow-down.png" alt="arrow-down icon" class="arrow-down up"></span>
                     <div id="pending-todos">
                         @foreach (var todo in Model.PendingTodos)
                         {
@@ -64,16 +65,22 @@
                                     <input type="checkbox" id="item@(todo.Id)" name="item@(todo.Id)" class="input-todo todo-checkbox" />
                                     <label for="item@(todo.Id)">@todo.Text</label>
                                 </div>
-                                <span class="date-todo">
-                                    <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                                    @todo.FormattedDueDate
-                                </span>
+                                <div class="right-part">
+                                    <img src="images/edit.png" alt="edit icon" class="edit-icon edit-btn">
+                                    <span class="date-todo">
+                                        <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                                        @todo.FormattedDueDate
+                                    </span>
+                                    <img src="images/bin.png" alt="delete icon" class="edit-icon bin delete-btn">
+                                </div>
                             </div>
                         }
                     </div>
+                    <span class="flex-arrow"><img src="images/arrow-down.png" alt="arrow-down icon" class="arrow-down"></span>
                 </div>
                 <div class="completed-items">
                     <p class="todo-p">COMPLETED</p>
+                    <span class="flex-arrow"><img src="images/arrow-down.png" alt="arrow-down icon" class="arrow-down up"></span>
                     <div id="completed-todos">
                         @foreach (var todo in Model.CompletedTodos)
                         {
@@ -82,13 +89,17 @@
                                     <input type="checkbox" id="completed@(todo.Id)" name="completed@(todo.Id)" class="input-todo todo-checkbox" checked />
                                     <label for="completed@(todo.Id)">@todo.Text</label>
                                 </div>
-                                <span class="date-todo">
-                                    <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
-                                    @todo.FormattedDueDate
-                                </span>
+                                <div class="right-part">
+                                    <span class="date-todo">
+                                        <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                                        @todo.FormattedDueDate
+                                    </span>
+                                    <img src="images/bin.png" alt="delete icon" class="edit-icon bin delete-btn">
+                                </div>
                             </div>
                         }
                     </div>
+                    <span class="flex-arrow"><img src="images/arrow-down.png" alt="arrow-down icon" class="arrow-down"></span>
                 </div>
             </section>
             <section class="calculator">

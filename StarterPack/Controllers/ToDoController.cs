@@ -6,6 +6,7 @@ namespace StarterPack.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [IgnoreAntiforgeryToken]
     public class ToDoController : ControllerBase
     {
         private readonly ToDoService _toDoService;
@@ -22,15 +23,14 @@ namespace StarterPack.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ToDoItem> AddTodo([FromBody] CreateToDoRequest request)
+        public ActionResult<ToDoItem> AddTodo([FromBody] CreateToDoRequest request) 
         {
             if (string.IsNullOrWhiteSpace(request.Text))
             {
                 return BadRequest("Todo text cannot be empty");
             }
-
             var todo = _toDoService.AddTodo(request.Text, request.DueDate);
-            return CreatedAtAction(nameof(GetTodos), new { id = todo.Id }, todo);
+            return Ok(todo);
         }
 
         [HttpPut("{id}/toggle")]
@@ -52,7 +52,33 @@ namespace StarterPack.Controllers
             {
                 return NotFound();
             }
-            return NoContent();
+            return Ok(); 
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<ToDoItem> UpdateTodo(int id, [FromBody] UpdateToDoRequest request) 
+        {
+            if (string.IsNullOrWhiteSpace(request.Text))
+            {
+                return BadRequest("Todo text cannot be empty");
+            }
+            var todo = _toDoService.UpdateTodo(id, request.Text);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+            return Ok(todo);
+        }
+
+        [HttpPut("{id}/date")]
+        public ActionResult<ToDoItem> UpdateTodoDate(int id, [FromBody] UpdateToDoDateRequest request) 
+        {
+            var todo = _toDoService.UpdateTodoDate(id, request.DueDate);
+            if (todo == null)
+            {
+                return NotFound();
+            }
+            return Ok(todo);
         }
     }
 
@@ -60,5 +86,15 @@ namespace StarterPack.Controllers
     {
         public string Text { get; set; } = string.Empty;
         public DateTime? DueDate { get; set; }
+    }
+
+    public class UpdateToDoRequest
+    {
+        public string Text { get; set; } = string.Empty;
+    }
+
+    public class UpdateToDoDateRequest
+    {
+        public DateTime DueDate { get; set; }
     }
 }

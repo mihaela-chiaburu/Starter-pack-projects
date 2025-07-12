@@ -1,4 +1,5 @@
-﻿using StarterPack.Models.ToDo;
+﻿using StarterPack.Models;
+using StarterPack.Models.ToDo;
 
 namespace StarterPack.Services
 {
@@ -69,6 +70,26 @@ namespace StarterPack.Services
                 return true;
             }
             return false;
+        }
+
+        public ToDoItem? UpdateTodo(int id, string newText)
+        {
+            var todo = _todos.FirstOrDefault(t => t.Id == id);
+            if (todo != null)
+            {
+                todo.Text = newText;
+            }
+            return todo;
+        }
+
+        public ToDoItem? UpdateTodoDate(int id, DateTime newDate)
+        {
+            var todo = _todos.FirstOrDefault(t => t.Id == id);
+            if (todo != null)
+            {
+                todo.DueDate = newDate;
+            }
+            return todo;
         }
     }
 }

@@ -7,8 +7,14 @@
         public DateTime DueDate { get; set; }
         public bool IsCompleted { get; set; }
 
-        public string FormattedDueDate => DueDate.Date == DateTime.Today
-            ? "due today"
-            : DueDate.ToString("dd/MM/yyyy");
+        public string FormattedDueDate
+        {
+            get
+            {
+                if (DueDate.Date == DateTime.Today)
+                    return "due today";
+                return DueDate.ToString("dd/MM/yyyy");
+            }
+        }
     }
 }

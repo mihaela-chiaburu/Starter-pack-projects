@@ -5,27 +5,28 @@ using StarterPack.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Register services
-builder.Services.AddRazorPages(); 
-builder.Services.AddHttpClient(); // Required for WeatherService
-builder.Services.AddScoped<WeatherService>(); // Register WeatherService
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
-builder.Services.AddScoped<CalculatorService>(); // Register CalculatorService
-builder.Services.AddSingleton<ToDoService>(); // todo service
+builder.Services.AddRazorPages();
+builder.Services.AddControllers(); 
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<WeatherService>();
+builder.Services.AddSingleton(builder.Configuration);
+builder.Services.AddScoped<CalculatorService>();
+builder.Services.AddSingleton<ToDoService>(); 
 
 var app = builder.Build();
 
-// Configure middleware
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error"); 
+    app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // Serve static files (e.g., css, images) from wwwroot
+app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
-app.MapRazorPages(); // Map Razor Pages routes
+
+app.MapRazorPages();
+app.MapControllers(); 
 
 app.Run();
