@@ -11,7 +11,8 @@ builder.Services.AddHttpClient();
 builder.Services.AddScoped<WeatherService>();
 builder.Services.AddSingleton(builder.Configuration);
 builder.Services.AddScoped<CalculatorService>();
-builder.Services.AddSingleton<ToDoService>(); 
+builder.Services.AddSingleton<ToDoService>();
+builder.Services.AddScoped<WeatherIconService>();
 
 var app = builder.Build();
 

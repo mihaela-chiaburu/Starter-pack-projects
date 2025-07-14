@@ -112,7 +112,7 @@ namespace StarterPack.Services
                     break;
             }
 
-            // Add to history
+            // add to history
             string equation = $"{model.StoredValue} {GetOperatorSymbol(model.LastOperation)} {currentValue}";
             _history.Insert(0, new CalculationHistory
             {

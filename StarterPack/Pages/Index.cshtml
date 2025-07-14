@@ -22,18 +22,18 @@
     <main>
         <article class="all-content">
             <section class="weather-app">
-                <h2 id="city-name">@Model.CityName</h2>
-                <img src="@Model.ConditionIcon" alt="weather icon" class="meteo-img" id="condition-icon">
-                <p class="meteo-info grade" id="temperature">@Model.Temperature</p>
-                <p class="meteo-info" id="condition">@Model.Condition</p>
+                <h2 id="city-name">@Model.Weather.CityName</h2>
+                <img src="@Model.Weather.ConditionIcon" alt="weather icon" class="meteo-img" id="condition-icon">
+                <p class="meteo-info grade" id="temperature">@Model.Weather.Temperature</p>
+                <p class="meteo-info" id="condition">@Model.Weather.Condition</p>
                 <div class="meteo-icons-div">
-                    <span class="meteo-info"><img src="images/wind.png" class="meteo-icons"> <span id="wind">@Model.Wind</span></span>
-                    <span class="meteo-info"><img src="images/humidity.png" class="meteo-icons"> <span id="humidity">@Model.Humidity</span></span>
-                    <span class="meteo-info"><img src="images/sun.png" class="meteo-icons"> <span id="uv">@Model.Uv</span></span>
+                    <span class="meteo-info"><img src="images/wind.png" class="meteo-icons"> <span id="wind">@Model.Weather.Wind</span></span>
+                    <span class="meteo-info"><img src="images/humidity.png" class="meteo-icons"> <span id="humidity">@Model.Weather.Humidity</span></span>
+                    <span class="meteo-info"><img src="images/sun.png" class="meteo-icons"> <span id="uv">@Model.Weather.Uv</span></span>
                 </div>
                 <p class="meteo-info hf-p">Hourly Forecast</p>
                 <div class="forecast">
-                    @foreach (var forecast in Model.Forecast)
+                    @foreach (var forecast in Model.Weather.Forecast)
                     {
                         <div class="forecast-weather-card">
                             <img src="@forecast.Icon" alt="weather icon" class="forecast-img">

@@ -82,19 +82,4 @@ namespace StarterPack.Controllers
         }
     }
 
-    public class CreateToDoRequest
-    {
-        public string Text { get; set; } = string.Empty;
-        public DateTime? DueDate { get; set; }
-    }
-
-    public class UpdateToDoRequest
-    {
-        public string Text { get; set; } = string.Empty;
-    }
-
-    public class UpdateToDoDateRequest
-    {
-        public DateTime DueDate { get; set; }
-    }
 }

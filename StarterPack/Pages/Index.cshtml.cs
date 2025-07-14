@@ -12,148 +12,69 @@ namespace StarterPack.Pages
         private readonly WeatherService _weatherService;
         private readonly CalculatorService _calculatorService;
         private readonly ToDoService _toDoService;
+        private readonly WeatherIconService _weatherIconService;
 
-        public IndexModel(WeatherService weatherService, CalculatorService calculatorService, ToDoService toDoService)
+        public IndexModel(
+            WeatherService weatherService,
+            CalculatorService calculatorService,
+            ToDoService toDoService,
+            WeatherIconService weatherIconService)
         {
             _weatherService = weatherService;
             _calculatorService = calculatorService;
             _toDoService = toDoService;
+            _weatherIconService = weatherIconService;
         }
 
-        //default values if city not found
-        public string CityName { get; set; } = "Not Found, Not Found";
-        public string ConditionIcon { get; set; } = "images/sun (3).png";
-        public string Temperature { get; set; } = "Not Found";
-        public string Condition { get; set; } = "Not Found";
-        public string Wind { get; set; } = "?";
-        public string Humidity { get; set; } = "?";
-        public string Uv { get; set; } = "?";
-        public List<ForecastViewModel> Forecast { get; set; } = new List<ForecastViewModel>
-        {
-            new ForecastViewModel { Icon = "images/sun (3).png", Hour = "Now", Temp = "?° C" },
-            new ForecastViewModel { Icon = "images/sun (3).png", Hour = "?pm", Temp = "?° C" },
-            new ForecastViewModel { Icon = "images/sun (3).png", Hour = "?pm", Temp = "?° C" },
-            new ForecastViewModel { Icon = "images/sun (3).png", Hour = "?pm", Temp = "?° C" }
-        };
-        public string SearchCity { get; set; } = "Chisinau"; //by default
+        // Weather Properties
+        public WeatherViewModel Weather { get; set; } = WeatherViewModel.CreateDefault();
+        public string SearchCity { get; set; } = "Chisinau";
+
+        // Calculator Properties
         public CalculatorViewModel Calculator { get; set; } = new();
+
+        // ToDo Properties
         public IEnumerable<ToDoItem> PendingTodos { get; set; } = new List<ToDoItem>();
         public IEnumerable<ToDoItem> CompletedTodos { get; set; } = new List<ToDoItem>();
-
 
         public async Task OnGetAsync(string city = "Chisinau")
         {
             SearchCity = city;
-            try
-            {
-                var data = await _weatherService.GetWeatherAsync(city);
 
-                CityName = $"{data.City}, {data.Country}";
-                Condition = data.Condition;
-                Temperature = $"{data.Temp_C}° C";
-                Wind = $"{data.Wind_Kph}km/h";
-                Humidity = $"{data.Humidity}%";
-                Uv = $"UV: {data.Uv}";
-                ConditionIcon = GetLocalWeatherIcon(data.Condition, data.Is_Day == 1);
-
-                Forecast = data.Forecast.Select(f =>
-                {
-                    var forecastHour = DateTime.Parse(f.Time).Hour;
-                    var isForecastDay = forecastHour >= 6 && forecastHour < 20;
-                    return new ForecastViewModel
-                    {
-                        Icon = GetLocalWeatherIcon(f.Condition.ToLower(), isForecastDay),
-                        Hour = $"{forecastHour}h",
-                        Temp = $"{f.Temp_C}° C"
-                    };
-                }).ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Weather fetch error: {ex.Message}");
-            }
-
-            Calculator = new CalculatorViewModel();
+            await LoadWeatherDataAsync(city);
+            LoadCalculatorData();
             LoadTodoData();
         }
 
         public async Task<IActionResult> OnPostCalculatorAsync([FromBody] CalculationRequest request)
         {
             Calculator = _calculatorService.ProcessCalculation(request);
-
             return new JsonResult(Calculator);
+        }
+
+        private async Task LoadWeatherDataAsync(string city)
+        {
+            try
+            {
+                var data = await _weatherService.GetWeatherAsync(city);
+                Weather = WeatherViewModel.FromWeatherData(data, _weatherIconService);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Weather fetch error: {ex.Message}");
+                Weather = WeatherViewModel.CreateDefault();
+            }
+        }
+
+        private void LoadCalculatorData()
+        {
+            Calculator = new CalculatorViewModel();
         }
 
         private void LoadTodoData()
         {
             PendingTodos = _toDoService.GetPendingTodos();
             CompletedTodos = _toDoService.GetCompletedTodos();
-        }
-
-        private string GetLocalWeatherIcon(string condition, bool isDay)
-        {
-            string iconPath = "images/weather-icons/Sunny.png";
-
-            if (condition.Contains("sunny")) iconPath = "images/weather-icons/Sunny.png";
-            else if (condition.Contains("clear")) iconPath = "images/weather-icons/clear-night.png";
-            else if (condition.Contains("overcast")) iconPath = "images/weather-icons/Overcast.png";
-            else if (condition.Contains("mist")) iconPath = "images/weather-icons/mist.png";
-            else if (condition.Contains("sleet")) iconPath = "images/weather-icons/sleet.png";
-            else if (condition.Contains("freezing drizzle")) iconPath = "images/weather-icons/freezing drizzle.png";
-            else if (condition.Contains("thunder")) iconPath = "images/weather-icons/Thunder.png";
-            else if (condition.Contains("blizzard")) iconPath = "images/weather-icons/blizzard.png";
-            else if (condition.Contains("light drizzle")) iconPath = "images/weather-icons/light drizzle.png";
-            else if (condition.Contains("ice pellets")) iconPath = "images/weather-icons/ice-pellets.png";
-
-            if (condition.Contains("partly cloudy"))
-            {
-                iconPath = isDay ? "images/weather-icons/Partly cloudy day.png" : "images/weather-icons/Partly cloudy night.png";
-            }
-            else if (condition.Contains("cloudy"))
-            {
-                iconPath = "images/weather-icons/cloudy.png";
-            }
-
-            if (condition.Contains("blowing snow"))
-            {
-                iconPath = "images/weather-icons/Blowing snow.png";
-            }
-            else if (condition.Contains("heavy snow"))
-            {
-                iconPath = "images/weather-icons/heavy snow.png";
-            }
-            else if (condition.Contains("snow"))
-            {
-                iconPath = "images/weather-icons/snow.png";
-            }
-
-            if (condition.Contains("freezing fog"))
-            {
-                iconPath = "images/weather-icons/freezing fog.png";
-            }
-            else if (condition.Contains("fog"))
-            {
-                iconPath = "images/weather-icons/fog.png";
-            }
-
-            if (condition.Contains("heavy rain") || condition.Contains("rain shower"))
-            {
-                iconPath = "images/weather-icons/heavy rain.png";
-            }
-            else if (condition.Contains("freezing rain"))
-            {
-                iconPath = "images/weather-icons/freezing drizzle.png";
-            }
-            else if (condition.Contains("rain with thunder"))
-            {
-                iconPath = "images/weather-icons/thunder.png";
-            }
-            else if (condition.Contains("rain"))
-            {
-                iconPath = "images/weather-icons/rain.png";
-            }
-
-            return iconPath;
         }
     }
 }
