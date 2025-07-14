@@ -68,7 +68,12 @@ namespace StarterPack.Services
             }
             else
             {
-                model.CurrentDisplay += number;
+                // adding this number would exceed display limit?
+                string newDisplay = model.CurrentDisplay + number;
+                if (newDisplay.Length <= 7)
+                {
+                    model.CurrentDisplay = newDisplay;
+                }
             }
         }
 
@@ -83,7 +88,7 @@ namespace StarterPack.Services
             model.LastOperation = operation;
             model.IsNewCalculation = true;
 
-            model.CurrentEquation = $"{model.StoredValue} {GetOperatorSymbol(operation)}";
+            model.CurrentEquation = $"{FormatForDisplay(model.StoredValue)} {GetOperatorSymbol(operation)}";
         }
 
         private void ProcessEquals(CalculatorViewModel model)
@@ -114,11 +119,11 @@ namespace StarterPack.Services
             }
 
             // add to history
-            string equation = $"{model.StoredValue} {GetOperatorSymbol(model.LastOperation)} {currentValue}";
+            string equation = $"{FormatForDisplay(model.StoredValue)} {GetOperatorSymbol(model.LastOperation)} {FormatForDisplay(currentValue)}";
             _history.Insert(0, new CalculationHistory
             {
                 Equation = equation,
-                Result = result.ToString("G15")
+                Result = FormatForDisplay(result)
             });
 
             // only last 10 calculations
@@ -127,7 +132,7 @@ namespace StarterPack.Services
                 _history = _history.Take(10).ToList();
             }
 
-            model.CurrentDisplay = result.ToString("G15");
+            model.CurrentDisplay = FormatForDisplay(result);
             model.CurrentEquation = $"{equation} =";
             model.LastOperation = "";
             model.IsNewCalculation = true;
@@ -162,15 +167,18 @@ namespace StarterPack.Services
         {
             double value = double.Parse(model.CurrentDisplay);
             double result = value / 100;
-            model.CurrentDisplay = result.ToString("G15");
+            model.CurrentDisplay = FormatForDisplay(result);
         }
 
         private void ProcessDecimal(CalculatorViewModel model)
         {
             if (!model.CurrentDisplay.Contains("."))
             {
-                model.CurrentDisplay += ".";
-                model.IsNewCalculation = false;
+                if (model.CurrentDisplay.Length < 7)
+                {
+                    model.CurrentDisplay += ".";
+                    model.IsNewCalculation = false;
+                }
             }
         }
 
@@ -196,6 +204,41 @@ namespace StarterPack.Services
                 "divide" => "÷",
                 _ => ""
             };
+        }
+
+        private string FormatForDisplay(double value)
+        {
+            if (double.IsNaN(value) || double.IsInfinity(value))
+                return "Error";
+
+            string result = value.ToString("G15");
+
+            if (result.Length <= 7)
+                return result;
+
+            if (Math.Abs(value) >= 1000000 || (Math.Abs(value) < 0.001 && value != 0))
+            {
+                result = value.ToString("E1");
+                if (result.Length <= 7)
+                    return result;
+
+                result = value.ToString("E0");
+                if (result.Length <= 7)
+                    return result;
+            }
+
+            for (int decimals = 6; decimals >= 0; decimals--)
+            {
+                result = value.ToString($"F{decimals}");
+                if (result.Length <= 7)
+                    return result;
+            }
+
+            result = value.ToString("E0");
+            if (result.Length <= 7)
+                return result;
+
+            return result.Substring(0, 7);
         }
 
         public List<CalculationHistory> GetHistory()

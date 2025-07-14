@@ -156,6 +156,7 @@ body, h1, h2, h3 {
 
 .input-wrapper-todo {
     width: 100%;
+    position: relative;
 }
 
 .todo-p {
@@ -202,9 +203,9 @@ body, h1, h2, h3 {
     transition: 0.3s;
 }
 
-    .arrow-down:hover {
-        opacity: 0.7;
-    }
+.arrow-down:hover {
+    opacity: 0.7;
+}
 
 .up {
     transform: scaleY(-1);
@@ -239,10 +240,12 @@ body, h1, h2, h3 {
 }
 
 .add-item-icon {
+    position: absolute;
     width: 25px;
     height: 25px;
     opacity: 0.8;
-    margin-right: 20px;
+    right: 15px;
+    top: 70%;
 }
 
 .calculator {
