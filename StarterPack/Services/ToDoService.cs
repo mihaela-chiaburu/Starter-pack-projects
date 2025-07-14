@@ -1,9 +1,10 @@
-﻿using StarterPack.Models;
+﻿using StarterPack.Interfaces;
+using StarterPack.Models;
 using StarterPack.Models.ToDo;
 
 namespace StarterPack.Services
 {
-    public class ToDoService
+    public class ToDoService : IToDoService
     {
         private readonly List<ToDoItem> _todos;
         private int _nextId = 1;

@@ -1,9 +1,10 @@
-﻿using StarterPack.Models.Weather;
+﻿using StarterPack.Interfaces;
+using StarterPack.Models.Weather;
 using System.Text.Json;
 
 namespace StarterPack.Services
 {
-    public class WeatherService
+    public class WeatherService : IWeatherService
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _config;

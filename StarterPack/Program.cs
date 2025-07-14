@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StarterPack.Interfaces;
 using StarterPack.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-builder.Services.AddControllers(); 
+builder.Services.AddControllers();
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<WeatherService>();
-builder.Services.AddSingleton(builder.Configuration);
-builder.Services.AddScoped<CalculatorService>();
-builder.Services.AddSingleton<ToDoService>();
-builder.Services.AddScoped<WeatherIconService>();
+
+builder.Services.AddScoped<IWeatherService, WeatherService>();
+builder.Services.AddScoped<ICalculatorService, CalculatorService>();
+builder.Services.AddSingleton<IToDoService, ToDoService>();
+builder.Services.AddScoped<IWeatherIconService, WeatherIconService>();
 
 var app = builder.Build();
 
@@ -28,6 +29,6 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
-app.MapControllers(); 
+app.MapControllers();
 
 app.Run();

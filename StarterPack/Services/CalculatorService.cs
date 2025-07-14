@@ -1,8 +1,9 @@
-﻿using StarterPack.Models.Calculator;
+﻿using StarterPack.Interfaces;
+using StarterPack.Models.Calculator;
 
 namespace StarterPack.Services
 {
-    public class CalculatorService
+    public class CalculatorService : ICalculatorService
     {
         private static List<CalculationHistory> _history = new();
 

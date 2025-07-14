@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StarterPack.Interfaces;  
 using StarterPack.Models.ToDo;
-using StarterPack.Services;
 
 namespace StarterPack.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [IgnoreAntiforgeryToken]
+    //[IgnoreAntiforgeryToken]
     public class ToDoController : ControllerBase
     {
-        private readonly ToDoService _toDoService;
+        private readonly IToDoService _toDoService;  
 
-        public ToDoController(ToDoService toDoService)
+        public ToDoController(IToDoService toDoService) 
         {
             _toDoService = toDoService;
         }
@@ -23,7 +23,7 @@ namespace StarterPack.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ToDoItem> AddTodo([FromBody] CreateToDoRequest request) 
+        public ActionResult<ToDoItem> AddTodo([FromBody] CreateToDoRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Text))
             {
@@ -52,11 +52,11 @@ namespace StarterPack.Controllers
             {
                 return NotFound();
             }
-            return Ok(); 
+            return Ok();
         }
 
         [HttpPut("{id}")]
-        public ActionResult<ToDoItem> UpdateTodo(int id, [FromBody] UpdateToDoRequest request) 
+        public ActionResult<ToDoItem> UpdateTodo(int id, [FromBody] UpdateToDoRequest request)
         {
             if (string.IsNullOrWhiteSpace(request.Text))
             {
@@ -71,7 +71,7 @@ namespace StarterPack.Controllers
         }
 
         [HttpPut("{id}/date")]
-        public ActionResult<ToDoItem> UpdateTodoDate(int id, [FromBody] UpdateToDoDateRequest request) 
+        public ActionResult<ToDoItem> UpdateTodoDate(int id, [FromBody] UpdateToDoDateRequest request)
         {
             var todo = _toDoService.UpdateTodoDate(id, request.DueDate);
             if (todo == null)
@@ -81,5 +81,4 @@ namespace StarterPack.Controllers
             return Ok(todo);
         }
     }
-
 }

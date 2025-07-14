@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using StarterPack.Interfaces;
+using System.Collections.Generic;
 
 namespace StarterPack.Services
 {
-    public class WeatherIconService
+    public class WeatherIconService : IWeatherIconService
     {
         private readonly Dictionary<string, string> _conditionIcons = new()
         {

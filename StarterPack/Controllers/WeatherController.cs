@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StarterPack.Services;
+using StarterPack.Interfaces;  
 
 namespace StarterPack.Controllers
 {
@@ -7,9 +7,9 @@ namespace StarterPack.Controllers
     [Route("api/[controller]")]
     public class WeatherController : ControllerBase
     {
-        private readonly WeatherService _weatherService;
+        private readonly IWeatherService _weatherService; 
 
-        public WeatherController(WeatherService weatherService)
+        public WeatherController(IWeatherService weatherService)  
         {
             _weatherService = weatherService;
         }
@@ -17,11 +17,8 @@ namespace StarterPack.Controllers
         [HttpGet("{city}")]
         public async Task<IActionResult> GetWeather(string city)
         {
-            
             var weather = await _weatherService.GetWeatherAsync(city);
             return Ok(weather);
         }
-
     }
-
 }

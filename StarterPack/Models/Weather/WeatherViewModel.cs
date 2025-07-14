@@ -1,4 +1,5 @@
-﻿using StarterPack.Models.Weather;
+﻿using StarterPack.Interfaces;
+using StarterPack.Models.Weather;
 using StarterPack.Services;
 
 namespace StarterPack.Models.Weather
@@ -28,7 +29,7 @@ namespace StarterPack.Models.Weather
             };
         }
 
-        public static WeatherViewModel FromWeatherData(WeatherDto data, WeatherIconService iconService)
+        public static WeatherViewModel FromWeatherData(WeatherDto data, IWeatherIconService iconService)
         {
             return new WeatherViewModel
             {
