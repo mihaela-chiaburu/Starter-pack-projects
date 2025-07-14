@@ -27,9 +27,9 @@
                 <p class="meteo-info grade" id="temperature">@Model.Weather.Temperature</p>
                 <p class="meteo-info" id="condition">@Model.Weather.Condition</p>
                 <div class="meteo-icons-div">
-                    <span class="meteo-info"><img src="images/wind.png" class="meteo-icons"> <span id="wind">@Model.Weather.Wind</span></span>
-                    <span class="meteo-info"><img src="images/humidity.png" class="meteo-icons"> <span id="humidity">@Model.Weather.Humidity</span></span>
-                    <span class="meteo-info"><img src="images/sun.png" class="meteo-icons"> <span id="uv">@Model.Weather.Uv</span></span>
+                    <span class="meteo-info"><img src="~/images/wind.png" class="meteo-icons"> <span id="wind">@Model.Weather.Wind</span></span>
+                    <span class="meteo-info"><img src="~/images/humidity.png" class="meteo-icons"> <span id="humidity">@Model.Weather.Humidity</span></span>
+                    <span class="meteo-info"><img src="~/images/sun.png" class="meteo-icons"> <span id="uv">@Model.Weather.Uv</span></span>
                 </div>
                 <p class="meteo-info hf-p">Hourly Forecast</p>
                 <div class="forecast">
@@ -45,18 +45,18 @@
                 <div class="input-wrapper">
                     <form method="get">
                         <input type="text" name="city" class="input-oras" placeholder="Search city" value="@Model.SearchCity">
-                        <img src="images/search.png" alt="search icon" class="search-icon">
+                        <img src="~/images/search.png" alt="search icon" class="search-icon">
                     </form>
                 </div>
             </section>
             <section class="todo-app">
                 <div class="input-wrapper input-wrapper-todo">
                     <input type="text" class="input-oras" placeholder="Add item" id="todo-input">
-                    <img src="images/plus.png" alt="add icon" class="search-icon add-item-icon" id="add-todo-btn">
+                    <img src="~/images/plus.png" alt="add icon" class="search-icon add-item-icon" id="add-todo-btn">
                 </div>
                 <div class="todo-items">
                     <p class="todo-p">TO DO</p>
-                    <span class="flex-arrow"><img src="images/arrow-down.png" alt="arrow-down icon" class="arrow-down up"></span>
+                    <span class="flex-arrow"><img src="~/images/arrow-down.png" alt="arrow-down icon" class="arrow-down up"></span>
                     <div id="pending-todos">
                         @foreach (var todo in Model.PendingTodos)
                         {
@@ -66,21 +66,21 @@
                                     <label for="item@(todo.Id)">@todo.Text</label>
                                 </div>
                                 <div class="right-part">
-                                    <img src="images/edit.png" alt="edit icon" class="edit-icon edit-btn">
+                                    <img src="~/images/edit.png" alt="edit icon" class="edit-icon edit-btn">
                                     <span class="date-todo">
-                                        <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                                        <img src="~/images/calendar.png" alt="calendar-icon" class="calendar-icon">
                                         @todo.FormattedDueDate
                                     </span>
-                                    <img src="images/bin.png" alt="delete icon" class="edit-icon bin delete-btn">
+                                    <img src="~/images/bin.png" alt="delete icon" class="edit-icon bin delete-btn">
                                 </div>
                             </div>
                         }
                     </div>
-                    <span class="flex-arrow"><img src="images/arrow-down.png" alt="arrow-down icon" class="arrow-down"></span>
+                    <span class="flex-arrow"><img src="~/images/arrow-down.png" alt="arrow-down icon" class="arrow-down"></span>
                 </div>
                 <div class="completed-items">
                     <p class="todo-p">COMPLETED</p>
-                    <span class="flex-arrow"><img src="images/arrow-down.png" alt="arrow-down icon" class="arrow-down up"></span>
+                    <span class="flex-arrow"><img src="~/images/arrow-down.png" alt="arrow-down icon" class="arrow-down up"></span>
                     <div id="completed-todos">
                         @foreach (var todo in Model.CompletedTodos)
                         {
@@ -91,15 +91,15 @@
                                 </div>
                                 <div class="right-part">
                                     <span class="date-todo">
-                                        <img src="images/calendar.png" alt="calendar-icon" class="calendar-icon">
+                                        <img src="~/images/calendar.png" alt="calendar-icon" class="calendar-icon">
                                         @todo.FormattedDueDate
                                     </span>
-                                    <img src="images/bin.png" alt="delete icon" class="edit-icon bin delete-btn">
+                                    <img src="~/images/bin.png" alt="delete icon" class="edit-icon bin delete-btn">
                                 </div>
                             </div>
                         }
                     </div>
-                    <span class="flex-arrow"><img src="images/arrow-down.png" alt="arrow-down icon" class="arrow-down"></span>
+                    <span class="flex-arrow"><img src="~/images/arrow-down.png" alt="arrow-down icon" class="arrow-down"></span>
                 </div>
             </section>
             <section class="calculator">
