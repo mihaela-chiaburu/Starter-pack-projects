@@ -12,8 +12,8 @@ namespace StarterPack.Services
             { "overcast", "images/weather-icons/Overcast.png" },
             { "mist", "images/weather-icons/mist.png" },
             { "sleet", "images/weather-icons/sleet.png" },
-            { "freezing drizzle", "images/weather-icons/freezingdrizzle.png" },
-            { "thunder", "images/weather-icons/Thunder.png" },
+            { "freezing drizzle", "images/weather-icons/Freezingdrizzle.png" },
+            { "thunder", "images/weather-icons/thunder.png" },
             { "blizzard", "images/weather-icons/blizzard.png" },
             { "light drizzle", "images/weather-icons/lightdrizzle.png" },
             { "ice pellets", "images/weather-icons/ice-pellets.png" },
@@ -23,9 +23,9 @@ namespace StarterPack.Services
             { "snow", "images/weather-icons/snow.png" },
             { "freezing fog", "images/weather-icons/freezingfog.png" },
             { "fog", "images/weather-icons/fog.png" },
-            { "heavy rain", "images/weather-icons/heavyrain.png" },
-            { "rain shower", "images/weather-icons/heavyrain.png" },
-            { "freezing rain", "images/weather-icons/freezingdrizzle.png" },
+            { "heavy rain", "images/weather-icons/Heavyrain.png" },
+            { "rain shower", "images/weather-icons/Heavyrain.png" },
+            { "freezing rain", "images/weather-icons/Freezingdrizzle.png" },
             { "rain with thunder", "images/weather-icons/thunder.png" },
             { "rain", "images/weather-icons/rain.png" }
         };
