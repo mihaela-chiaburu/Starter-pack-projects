@@ -17,7 +17,7 @@ namespace StarterPack.Services
 
         public async Task<WeatherDto> GetWeatherAsync(string city)
         {
-            string apiKey = _config["WeatherApi:ApiKey"];
+            string apiKey = _config["WeatherApi"];
             string url = $"https://api.weatherapi.com/v1/forecast.json?key={apiKey}&q={city}&days=1&aqi=no&alerts=no";
 
             var response = await _httpClient.GetAsync(url);
