@@ -15,12 +15,12 @@ namespace StarterPack.Services
             {
                 new ToDoItem { Id = _nextId++, Text = "Wake Up", DueDate = DateTime.Today, IsCompleted = false },
                 new ToDoItem { Id = _nextId++, Text = "Make breakfast", DueDate = DateTime.Today.AddDays(-2), IsCompleted = false },
-                new ToDoItem { Id = _nextId++, Text = "Watch TikTok", DueDate = DateTime.Today.AddDays(-1), IsCompleted = false },
+                //new ToDoItem { Id = _nextId++, Text = "Watch TikTok", DueDate = DateTime.Today.AddDays(-1), IsCompleted = false },
                 new ToDoItem { Id = _nextId++, Text = "Go sleep", DueDate = DateTime.Today, IsCompleted = false },
                 new ToDoItem { Id = _nextId++, Text = "Sleep", DueDate = DateTime.Today, IsCompleted = true },
                 new ToDoItem { Id = _nextId++, Text = "Watch a video", DueDate = DateTime.Today.AddDays(-5), IsCompleted = true },
-                new ToDoItem { Id = _nextId++, Text = "Watch a movie", DueDate = DateTime.Today.AddDays(-6), IsCompleted = true },
-                new ToDoItem { Id = _nextId++, Text = "Dance", DueDate = DateTime.Today.AddDays(-9), IsCompleted = true }
+                new ToDoItem { Id = _nextId++, Text = "Learn C#", DueDate = DateTime.Today.AddDays(-6), IsCompleted = true }
+                //new ToDoItem { Id = _nextId++, Text = "Dance", DueDate = DateTime.Today.AddDays(-9), IsCompleted = true }
             };
         }
 
