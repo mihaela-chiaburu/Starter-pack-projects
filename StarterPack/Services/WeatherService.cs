@@ -26,6 +26,8 @@ namespace StarterPack.Services
             var json = await response.Content.ReadAsStringAsync();
             var weatherRaw = JsonSerializer.Deserialize<WeatherApiResponse>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
+            var locationTime = DateTime.Parse(weatherRaw.Location.Localtime);
+
             return new WeatherDto
             {
                 City = weatherRaw.Location.Name,
@@ -39,11 +41,11 @@ namespace StarterPack.Services
                 ConditionIcon = "https:" + weatherRaw.Current.Condition.Icon,
                 Forecast = weatherRaw.Forecast.ForecastDay[0].Hour
                     .OrderBy(h => DateTime.Parse(h.Time))
-                    .Where(h => DateTime.Parse(h.Time) >= DateTime.Now)
+                    .Where(h => DateTime.Parse(h.Time) >= locationTime)
                     .Take(4)
                     .Union(
                         weatherRaw.Forecast.ForecastDay[0].Hour
-                            .Where(h => DateTime.Parse(h.Time) < DateTime.Now)
+                            .Where(h => DateTime.Parse(h.Time) < locationTime)
                             .OrderBy(h => DateTime.Parse(h.Time))
                             .Take(4)
                     )
