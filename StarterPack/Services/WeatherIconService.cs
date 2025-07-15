@@ -12,20 +12,20 @@ namespace StarterPack.Services
             { "overcast", "images/weather-icons/Overcast.png" },
             { "mist", "images/weather-icons/mist.png" },
             { "sleet", "images/weather-icons/sleet.png" },
-            { "freezing drizzle", "images/weather-icons/freezing drizzle.png" },
+            { "freezing drizzle", "images/weather-icons/freezingdrizzle.png" },
             { "thunder", "images/weather-icons/Thunder.png" },
             { "blizzard", "images/weather-icons/blizzard.png" },
-            { "light drizzle", "images/weather-icons/light drizzle.png" },
+            { "light drizzle", "images/weather-icons/lightdrizzle.png" },
             { "ice pellets", "images/weather-icons/ice-pellets.png" },
             { "cloudy", "images/weather-icons/cloudy.png" },
-            { "blowing snow", "images/weather-icons/Blowing snow.png" },
-            { "heavy snow", "images/weather-icons/heavy snow.png" },
+            { "blowing snow", "images/weather-icons/Blowingsnow.png" },
+            { "heavy snow", "images/weather-icons/heavysnow.png" },
             { "snow", "images/weather-icons/snow.png" },
-            { "freezing fog", "images/weather-icons/freezing fog.png" },
+            { "freezing fog", "images/weather-icons/freezingfog.png" },
             { "fog", "images/weather-icons/fog.png" },
-            { "heavy rain", "images/weather-icons/heavy rain.png" },
-            { "rain shower", "images/weather-icons/heavy rain.png" },
-            { "freezing rain", "images/weather-icons/freezing drizzle.png" },
+            { "heavy rain", "images/weather-icons/heavyrain.png" },
+            { "rain shower", "images/weather-icons/heavyrain.png" },
+            { "freezing rain", "images/weather-icons/freezingdrizzle.png" },
             { "rain with thunder", "images/weather-icons/thunder.png" },
             { "rain", "images/weather-icons/rain.png" }
         };
@@ -36,7 +36,7 @@ namespace StarterPack.Services
 
             if (normalizedCondition.Contains("partly cloudy"))
             {
-                return isDay ? "images/weather-icons/Partly cloudy day.png" : "images/weather-icons/Partly cloudy night.png";
+                return isDay ? "images/weather-icons/Partlycloudyday.png" : "images/weather-icons/Partlycloudynight.png";
             }
 
             var priorityOrder = new[]
